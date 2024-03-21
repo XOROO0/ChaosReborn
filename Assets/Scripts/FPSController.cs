@@ -43,6 +43,7 @@ public class FPSController : MonoBehaviour
     private Vector3 slopeMoveDirection;
 
     public static bool IsMoving;
+    public static Transform playerTransform;
 
     public static Vector3 currentPos;
     public static bool canMove = true;
@@ -77,6 +78,8 @@ public class FPSController : MonoBehaviour
         rb.freezeRotation = true;
 
         startYScale = playerOBJ.localScale.y;
+
+        playerTransform = orientation.transform;
     }
 
     private void Update()

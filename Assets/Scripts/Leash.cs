@@ -26,10 +26,13 @@ public class Leash : MonoBehaviour
             StartLeash();
         }
 
-/*        if(caughtEnemy != null)
+        if(caughtEnemy != null)
         {
             hitPoint = caughtEnemy.position;
-        }*/
+        }
+
+        if (caughtEnemy == null)
+            isLeashing = false;
     }
 
 
@@ -40,12 +43,16 @@ public class Leash : MonoBehaviour
 
         if(Physics.Raycast(cam.position, cam.forward, out hit, 50, whatIsLeashable))
         {
-            isLeashing = true;
-            caughtEnemy = hit.transform;
-            hitPoint = hit.point;
+            if(hit.transform.root.GetComponent<RagdollEnemy>().IsStunned)
+            {
+                isLeashing = true;
+                caughtEnemy = hit.transform;
+                hitPoint = hit.point;
 
 
-            Invoke(nameof(PullLeash), 0.3f);
+                Invoke(nameof(PullLeash), 0.3f);
+            }
+
         }
     }
 
@@ -55,14 +62,15 @@ public class Leash : MonoBehaviour
             return;
 
 
-        caughtEnemy.transform.GetComponent<Blast>().Pull();
+        caughtEnemy.transform.root.GetComponent<RagdollEnemy>().Pull();
 
-        Invoke(nameof(StopLeash), 0.2f);
+        Invoke(nameof(StopLeash), 1f);
     }
 
     void StopLeash()
     {
         isLeashing = false;
+        caughtEnemy.transform.root.GetComponent<RagdollEnemy>().StopMoving();
     }
 
     public Vector3 GetHitPoint => hitPoint;

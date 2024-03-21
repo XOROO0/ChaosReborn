@@ -77,14 +77,16 @@ public class GunSystem : MonoBehaviour
         Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
 
         //RayCast
-        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range, whatIsEnemy))
+        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))
         {
             Debug.Log(rayHit.collider.name);
 
             if(rayHit.collider != null)
             {
-                if(rayHit.collider.CompareTag("Enemy"))
-                    rayHit.collider.GetComponent<Blast>().TakeDamage(damage);
+                if((whatIsEnemy & (1 << rayHit.collider.gameObject.layer)) != 0) 
+                {
+                    rayHit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(damage);
+                }
             }
         }
 

@@ -62,10 +62,12 @@ public class WallRun : MonoBehaviour
         {
             if(wallLeft)
             {
+                Debug.Log("Wall Run Left");
                 StartWallRun();
             }
             else if(wallRight)
             {
+                Debug.Log("Wall Run Right");
                 StartWallRun();
             }
             else
@@ -85,6 +87,7 @@ public class WallRun : MonoBehaviour
         rb.useGravity = false;
 
         rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Force);
+        rb.AddForce(wallRight ? orientation.right : -orientation.right * 5f, ForceMode.Force);
 
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunfov, wallRunfovTime * Time.deltaTime);
 
