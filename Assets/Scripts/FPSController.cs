@@ -141,7 +141,7 @@ public class FPSController : MonoBehaviour
 
         IsMoving = horizontalMovement != 0 || verticalMovement != 0;
 
-        if(Input.GetKeyDown(KeyCode.LeftShift) && IsMoving)
+        if(Input.GetKeyDown(KeyCode.LeftShift) && IsMoving && isGrounded)
         {
             StartSlide();
         }

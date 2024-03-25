@@ -6,7 +6,7 @@ using UnityEngine;
 public class RagdollEnemy : MonoBehaviour
 {
     [SerializeField]
-    private int Health = 200;
+    private int health = 200;
 
     [SerializeField] GameObject explosion;
 
@@ -17,6 +17,8 @@ public class RagdollEnemy : MonoBehaviour
     public float blinkIntensity;
     public float blinkDuration;
     float blinkTimer;
+
+    public float Health { get { return health; } }
 
     public bool IsStunned = false;
 
@@ -47,7 +49,9 @@ public class RagdollEnemy : MonoBehaviour
 
         rd.ActivateRagdoll();
 
-        //rd.AddForce(pullVector * 100);
+
+        rd.AddForce(pullVector *
+            Vector3.Distance(FPSController.playerTransform.position, transform.position) * 4);  
         rd.AddForce(transform.up * 40);
 
         update = true;
@@ -74,14 +78,14 @@ public class RagdollEnemy : MonoBehaviour
     {
         //Debug.Log("Take Damage");
 
-        Health -= amt;
+        health -= amt;
 
-        if (Health <= 50)
+        if (health <= 50)
         {
             Stunned();
         }
 
-        if (Health <= 0)
+        if (health <= 0)
             Die();
     }
 
@@ -95,6 +99,7 @@ public class RagdollEnemy : MonoBehaviour
     {
         blinkTimer = blinkDuration;
         IsStunned = true;
+        transform.GetComponent<Normal_Enemy>().runAway = true;
     }
 
 }

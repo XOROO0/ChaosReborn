@@ -46,6 +46,9 @@ public class WallRun : MonoBehaviour
         wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallDistance);
         wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallDistance);
 
+        Debug.DrawRay(transform.position, -orientation.right* wallDistance, Color.red);
+        Debug.DrawRay(transform.position, orientation.right * wallDistance, Color.red);
+
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
 
         wallDir = Vector3.Cross(wallNormal, transform.up);
@@ -125,4 +128,6 @@ public class WallRun : MonoBehaviour
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, fov, wallRunfovTime * Time.deltaTime);
         tilt = Mathf.Lerp(tilt, 0, camTiltTime * Time.deltaTime);
     }
+
+    
 }

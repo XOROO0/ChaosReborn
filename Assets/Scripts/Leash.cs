@@ -70,6 +70,7 @@ public class Leash : MonoBehaviour
     void StopLeash()
     {
         isLeashing = false;
+        if(caughtEnemy == null) return;
         caughtEnemy.transform.root.GetComponent<RagdollEnemy>().StopMoving();
     }
 
