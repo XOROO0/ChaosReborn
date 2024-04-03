@@ -14,34 +14,31 @@ public class Normal_Enemy : Enemy
     {
         if (runAway)
         {
-            EnemyAgent.enabled = true;
+
             anim.SetBool("RunAway", true);
             RunAway();
         }
         else
         {
-            if (inRange())
+            if(Vector3.Distance(FPSController.playerTransform.position, transform.position)
+                <= EnemyAgent.stoppingDistance)
             {
-                EnemyAgent.enabled = true;
-                EnemyAgent.destination = FPSController.playerTransform.position;
+                anim.Play("Zombie Attack");
+            }
 
-                anim.SetBool("Walking", !EnemyAgent.isStopped);
-            }
-            else
-            {
-                EnemyAgent.enabled = false;
-                anim.SetBool("Walking", false);
-            }
+            EnemyAgent.destination = FPSController.playerTransform.position;
+
+            anim.SetBool("Walking", !EnemyAgent.isStopped);
         }
     }
 
     private void RunAway()
     {
 
-        var dir = (transform.position - FPSController.playerTransform.position).normalized;
+        var dir = -transform.forward;
         dir.y = 0;
 
-        transform.rotation = Quaternion.LookRotation(dir, transform.up);
+        //transform.rotation = Quaternion.LookRotation(dir, transform.up);
 
         EnemyAgent.Move(dir * 8f * Time.deltaTime);
     }

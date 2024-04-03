@@ -169,7 +169,8 @@ public class FPSController : MonoBehaviour
         }
         else if(!isGrounded)
         {
-            rb.AddForce((WallRun.isWallRunning ? WallRun.wallDir : moveDirection.normalized)
+            rb.AddForce((WallRun.isWallRunning ? WallRun.wallDir * verticalMovement 
+                * GetComponent<WallRun>().wallRunSpeed: moveDirection.normalized)
                 * moveSpeed * moveMultiplier * airMultiplier, ForceMode.Acceleration);
         }
     }

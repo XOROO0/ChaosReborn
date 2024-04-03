@@ -62,6 +62,14 @@ public class GunSystem : MonoBehaviour
         {
             anim.SetBool("Shooting", false);
         }
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if (transform.name == "AR")
+                anim.Play("Gun_Hit");
+            else if (transform.name == "Shotgun")
+                anim.Play("Gun_Hit_S");
+        }
     }
     private void Shoot()
     {
@@ -79,7 +87,7 @@ public class GunSystem : MonoBehaviour
         //RayCast
         if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))
         {
-            Debug.Log(rayHit.collider.name);
+
 
             if(rayHit.collider != null)
             {
@@ -118,5 +126,26 @@ public class GunSystem : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         reloading = false;
+    }
+
+    public void GunSmash()
+    {
+        Vector3 direction = fpsCam.transform.forward;
+
+        RaycastHit hit;
+        //RayCast
+        if (Physics.SphereCast(fpsCam.transform.position, 0.3f, direction, out hit, 2))
+        {
+            if (hit.collider != null)
+            {
+                if ((whatIsEnemy & (1 << hit.collider.gameObject.layer)) != 0)
+                {
+                    if(hit.transform.root.GetComponent<RagdollEnemy>().IsStunned)
+                    {
+                        hit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(100);
+                    }
+                }
+            }
+        }
     }
 }

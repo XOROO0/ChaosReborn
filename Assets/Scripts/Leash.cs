@@ -71,7 +71,7 @@ public class Leash : MonoBehaviour
     {
         isLeashing = false;
         if(caughtEnemy == null) return;
-        caughtEnemy.transform.root.GetComponent<RagdollEnemy>().StopMoving();
+        //caughtEnemy.transform.root.GetComponent<RagdollEnemy>().StopMoving();
     }
 
     public Vector3 GetHitPoint => hitPoint;

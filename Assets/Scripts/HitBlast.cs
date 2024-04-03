@@ -22,7 +22,7 @@ public class HitBlast : MonoBehaviour
 
     // Update is called once per fram
 
-    private void OnCollisionEnter(Collision collision)
+/*    private void OnCollisionEnter(Collision collision)
     {
 
         if((ground & (1 << collision.gameObject.layer)) != 0)
@@ -31,9 +31,8 @@ public class HitBlast : MonoBehaviour
             if (velocityMagnitude - rb.velocity.sqrMagnitude > 80)
             {
                 transform.parent.GetComponent<RagdollEnemy>().TakeDamage(100);
-                CameraShake.Shake(0.2f, 2f);
             }
         }
 
-    }
+    }*/
 }

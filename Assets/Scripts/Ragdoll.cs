@@ -45,4 +45,12 @@ public class Ragdoll : MonoBehaviour
     {
         hipRB.AddForce(force, ForceMode.VelocityChange);
     }
+
+    public void StopAllForces()
+    {
+        foreach (var r in rbs)
+        {
+            r.velocity = Vector3.zero;
+        }
+    }
 }

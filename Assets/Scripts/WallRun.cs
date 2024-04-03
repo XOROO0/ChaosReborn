@@ -5,6 +5,7 @@ public class WallRun : MonoBehaviour
     [SerializeField] Transform orientation;
 
     [Header("Wall Running")]
+    public float wallRunSpeed = 0.5f;
     [SerializeField] float wallDistance = 0.5f;
     [SerializeField] float minimumJumpHeight = 1.5f;
     [SerializeField] float wallRunGravity;
@@ -46,8 +47,6 @@ public class WallRun : MonoBehaviour
         wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallDistance);
         wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallDistance);
 
-        Debug.DrawRay(transform.position, -orientation.right* wallDistance, Color.red);
-        Debug.DrawRay(transform.position, orientation.right * wallDistance, Color.red);
 
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
 
