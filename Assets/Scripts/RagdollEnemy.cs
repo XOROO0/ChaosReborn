@@ -139,6 +139,7 @@ public class RagdollEnemy : MonoBehaviour
     private void Die()
     {
         Instantiate(explosion, rd.hipPosition, Quaternion.identity);
+        AudioManager.instance.Play("Splash");
 
         if(update)
         {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10105,6 +10105,75 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1299978323}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1313189768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1313189770}
+  - component: {fileID: 1313189769}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1313189769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313189768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3a4ebef0ffced14a8b595127065d1be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: AR_Shot
+    clip: {fileID: 8300000, guid: 057e498e261e2c34a8b61c2e9d038e1b, type: 3}
+    volume: 1
+    pitch: 3
+    loop: 0
+    source: {fileID: 0}
+  - name: Shotgun_Shot
+    clip: {fileID: 8300000, guid: 972d3cbad67db3e49b6db51104ff0cd3, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BG
+    clip: {fileID: 8300000, guid: 9fedbfd0de953fd40a6635d067e1153c, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Splash
+    clip: {fileID: 8300000, guid: 92538e504784fcd45bd138a923ff001e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+--- !u!4 &1313189770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313189768}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1345885828
 GameObject:
   m_ObjectHideFlags: 0
@@ -10190,10 +10259,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1348107880}
   - component: {fileID: 1348107879}
-  - component: {fileID: 1348107878}
   - component: {fileID: 1348107881}
   - component: {fileID: 1348107882}
   - component: {fileID: 1348107883}
+  - component: {fileID: 1348107884}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -10201,14 +10270,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1348107878
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348107877}
-  m_Enabled: 1
 --- !u!20 &1348107879
 Camera:
   m_ObjectHideFlags: 0
@@ -10352,6 +10413,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a5666808dc8d4a9c6ba4179d242ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!81 &1348107884
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348107877}
+  m_Enabled: 1
 --- !u!1 &1371696142
 GameObject:
   m_ObjectHideFlags: 0
@@ -12634,7 +12703,7 @@ MonoBehaviour:
   wallJumpForce: 10
   cam: {fileID: 1348107879}
   fov: 90
-  wallRunfov: 120
+  wallRunfov: 110
   wallRunfovTime: 20
   camTilt: 15
   camTiltTime: 10
@@ -13460,7 +13529,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1783814304
 Transform:
   m_ObjectHideFlags: 0
@@ -15869,7 +15938,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2082093951
 Transform:
   m_ObjectHideFlags: 0
@@ -16989,6 +17058,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1313189770}
   - {fileID: 1034923187}
   - {fileID: 1026644203}
   - {fileID: 1664142179}

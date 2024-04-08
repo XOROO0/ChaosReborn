@@ -96,6 +96,12 @@ public class GunSystem : MonoBehaviour
         recoil.RecoilFire();
         /*CameraShake.Shake(0.1f, camShakeSterngth);*/
         CameraEffects.ShakeOnce(Duration, Speed, Amount, Camera.main, DeltaMovement, Curve);
+
+        if (transform.name == "AR")
+            AudioManager.instance.Play("AR_Shot");
+        else if (transform.name == "Shotgun")
+            AudioManager.instance.Play("Shotgun_Shot");
+
         readyToShoot = false;
 
         //Spread4f,
