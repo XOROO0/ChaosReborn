@@ -24,7 +24,7 @@ public class Ragdoll : MonoBehaviour
 
     public void DeactivateRagdoll()
     {
-        foreach (var r in rbs) 
+        foreach (var r in rbs)
         {
             r.isKinematic = true;
         }
@@ -43,7 +43,7 @@ public class Ragdoll : MonoBehaviour
     }
     public void AddForce(Vector3 force)
     {
-        hipRB.AddForce(force, ForceMode.VelocityChange);
+        hipRB.AddForce(force, ForceMode.Impulse);
     }
 
     public void StopAllForces()
@@ -51,6 +51,14 @@ public class Ragdoll : MonoBehaviour
         foreach (var r in rbs)
         {
             r.velocity = Vector3.zero;
+        }
+    }
+
+    public void DisableGravity()
+    {
+        foreach(var r in rbs)
+        {
+            r.useGravity = false;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,6 +9,7 @@ public class RagdollEnemy : MonoBehaviour
 {
     [SerializeField]
     private int health = 200;
+    public int dropHealth = 20;
 
     [SerializeField] GameObject explosion;
 
@@ -49,13 +51,16 @@ public class RagdollEnemy : MonoBehaviour
         {
             //Debug.Log(Vector3.Distance(FPSController.playerTransform.position, transform.GetChild(1).position));
 
+
             if(Vector3.Distance(FPSController.playerTransform.position,
                 transform.GetChild(1).position) < 2)
             {
+
                 Debug.Log("Punch Enemy");
 
                 rd.StopAllForces();
-                Invoke(nameof(AllowPlayerToMove), 2f);
+                rd.DisableGravity();
+                AllowPlayerToMove();
                 //rd.DeactivateRagdoll();
             }
         }
@@ -70,22 +75,31 @@ public class RagdollEnemy : MonoBehaviour
     public void Pull()
     {
 
-        Vector3 pullVector = -MoveCamera.CamHolder.forward;
+        FPSController.canMove = false;
+
+
+        Vector3 pullVector = WallRun.isWallRunning ? -Camera.main.transform.forward :
+            -FPSController.playerTransform.forward;
         rd.ActivateRagdoll();
 
 
-        rd.AddForce(pullVector *
-           Vector3.Distance(FPSController.playerTransform.position, transform.position) * 10);
+        var force = WallRun.isWallRunning ? 4000 : 2000;
+        rd.AddForce(pullVector * force);
 
-        rd.AddForce(transform.up * 20);
+
+        rd.AddForce(transform.up * 300);
+        //rd.DisableGravity();
         flag = false;
 
-        FPSController.playerTransform.parent.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        FPSController.canMove = false;
         //Invoke(nameof(CheckForQ), 1f);
         update = true;
         GetComponent<NavMeshAgent>().enabled = false;
         GetComponent<Normal_Enemy>().enabled = false;
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(0.5f);
     }
 
 /*    public void StopMoving()
@@ -125,7 +139,14 @@ public class RagdollEnemy : MonoBehaviour
     private void Die()
     {
         Instantiate(explosion, rd.hipPosition, Quaternion.identity);
-        CameraShake.Shake(0.2f, 2f);
+
+        if(update)
+        {
+            FPSController.playerTransform.
+                GetComponentInParent<PlayerHealth>().AddHealth(dropHealth);
+        }
+
+        //CameraShake.Shake(0.2f, 2f);
         Destroy(gameObject);
     }
 
@@ -144,6 +165,11 @@ public class RagdollEnemy : MonoBehaviour
     private void OnDestroy()
     {
         FPSController.canMove = true;
+    }
+
+    public void PushBack()
+    {
+        //transform.Translate();
     }
 
 }

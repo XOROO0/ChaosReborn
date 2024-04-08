@@ -26,9 +26,9 @@ public class CameraShake : MonoBehaviour
         }
     }
 
-    public static void Shake(float duration, float strength)
+/*    public static void Shake(float duration, float strength)
     {
         instance.OnShake(duration, strength);
-    }
+    }*/
 }
 

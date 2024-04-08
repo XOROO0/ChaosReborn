@@ -9,6 +9,8 @@ public class EquippingScript : MonoBehaviour
     public GameObject Slot2;
     public GameObject Slot3;
 
+    public static Transform equipped;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +23,13 @@ public class EquippingScript : MonoBehaviour
         if (Input.GetKeyDown("1"))
         {
             Equip1();
+            equipped = Slot1.transform;
         }
 
         if (Input.GetKeyDown("2"))
         {
             Equip2();
+            equipped = Slot2.transform;
         }
 
       /* if (Input.GetKeyDown("3"))

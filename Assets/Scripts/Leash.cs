@@ -41,7 +41,7 @@ public class Leash : MonoBehaviour
     {
         RaycastHit hit;
 
-        if(Physics.Raycast(cam.position, cam.forward, out hit, 50, whatIsLeashable))
+        if(Physics.Raycast(cam.position, cam.forward, out hit, 30, whatIsLeashable))
         {
             if(hit.transform.root.GetComponent<RagdollEnemy>().IsStunned)
             {

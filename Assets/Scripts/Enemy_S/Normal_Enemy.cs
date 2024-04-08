@@ -42,4 +42,13 @@ public class Normal_Enemy : Enemy
 
         EnemyAgent.Move(dir * 8f * Time.deltaTime);
     }
+
+    public void ZombieSlash()
+    {
+        if (Vector3.Distance(FPSController.playerTransform.position, transform.position)
+    <= EnemyAgent.stoppingDistance)
+        {
+            FPSController.playerTransform.GetComponentInParent<PlayerHealth>().DamagePlayer(10);
+        }
+    }
 }

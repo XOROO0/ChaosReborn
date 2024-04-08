@@ -115,8 +115,12 @@ public class FPSController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        HandleMovement();
-        HandleGravity();
+        if(canMove)
+        {
+            HandleMovement();
+            HandleGravity();
+        }
+
 
         if (isSliding)
             SlidingMovement();
@@ -132,7 +136,7 @@ public class FPSController : MonoBehaviour
     {
         if(!canMove)
         {
-            rb.velocity = Vector3.MoveTowards(rb.velocity, Vector3.zero, 20 * Time.deltaTime);
+            rb.velocity = Vector3.zero;
             horizontalMovement = verticalMovement = 0;
         }
 

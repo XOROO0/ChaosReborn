@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using DitzeGames.Effects;
+using UnityEngine.UI;
 
 public class GunSystem : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class GunSystem : MonoBehaviour
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
     int bulletsLeft, bulletsShot;
+    public int bulletsAdd;
+    public float coolDownForSmash = 10;
+    public Image smashImage;
 
     //bools
     bool shooting, readyToShoot, reloading;
@@ -20,14 +25,21 @@ public class GunSystem : MonoBehaviour
     public Transform attackPoint;
     public RaycastHit rayHit;
     public LayerMask whatIsEnemy;
+    public LayerMask notPlayerMask;
 
     //Graphics
     public ParticleSystem muzzleFlash;
     public GameObject bulletHoleGraphic;
-    //public CameraShake camShake;
-    public float camShakeMagnitude, camShakeDuration;
     public TextMeshProUGUI text;
-    public float camShakeSterngth = 0.05f;
+
+    // Camera Shake
+    public Vector3 Amount = new Vector3(1f, 1f, 0);
+    public float Duration = 1;
+    public float Speed = 10;
+    public AnimationCurve Curve = AnimationCurve.EaseInOut(0, 1, 1, 0);
+    public bool DeltaMovement = true;
+
+    private float timer;
 
     public Recoil recoil;
     private void Awake()
@@ -41,6 +53,22 @@ public class GunSystem : MonoBehaviour
 
         anim.SetBool("Moving", FPSController.IsMoving);
         anim.SetBool("Sliding", FPSController.isSliding);
+
+
+        timer += Time.deltaTime;
+        smashImage.fillAmount = Mathf.Clamp(timer / coolDownForSmash, 0, 1);
+
+        if(timer >= coolDownForSmash)
+        {
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (transform.name == "AR")
+                    anim.Play("Gun_Hit");
+                else if (transform.name == "Shotgun")
+                    anim.Play("Gun_Hit_S");
+            }
+        }
 
         //SetText
         text.SetText(bulletsLeft + " / " + magazineSize);
@@ -62,19 +90,12 @@ public class GunSystem : MonoBehaviour
         {
             anim.SetBool("Shooting", false);
         }
-
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            if (transform.name == "AR")
-                anim.Play("Gun_Hit");
-            else if (transform.name == "Shotgun")
-                anim.Play("Gun_Hit_S");
-        }
     }
     private void Shoot()
     {
         recoil.RecoilFire();
-        CameraShake.Shake(0.1f, camShakeSterngth);
+        /*CameraShake.Shake(0.1f, camShakeSterngth);*/
+        CameraEffects.ShakeOnce(Duration, Speed, Amount, Camera.main, DeltaMovement, Curve);
         readyToShoot = false;
 
         //Spread4f,
@@ -85,7 +106,7 @@ public class GunSystem : MonoBehaviour
         Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
 
         //RayCast
-        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))
+        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range, notPlayerMask))
         {
 
 
@@ -94,12 +115,15 @@ public class GunSystem : MonoBehaviour
                 if((whatIsEnemy & (1 << rayHit.collider.gameObject.layer)) != 0) 
                 {
                     rayHit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(damage);
+                    rayHit.transform.root.GetComponent<RagdollEnemy>().PushBack();
                 }
+
+                //Graphics
+                Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.LookRotation(rayHit.normal)).GetComponent<ParticleSystem>().Emit(1);
             }
         }
 
-        //Graphics
-        Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.LookRotation(rayHit.normal)).GetComponent<ParticleSystem>().Emit(1);
+
 
         muzzleFlash.Emit(1);
 
@@ -140,10 +164,9 @@ public class GunSystem : MonoBehaviour
             {
                 if ((whatIsEnemy & (1 << hit.collider.gameObject.layer)) != 0)
                 {
-                    if(hit.transform.root.GetComponent<RagdollEnemy>().IsStunned)
-                    {
-                        hit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(100);
-                    }
+                    hit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(100);
+                    bulletsLeft = Mathf.Clamp(bulletsLeft + bulletsAdd, 0, magazineSize);
+                    timer = 0f;
                 }
             }
         }
