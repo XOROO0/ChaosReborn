@@ -61,6 +61,7 @@ public class RagdollEnemy : MonoBehaviour
                 rd.StopAllForces();
                 rd.DisableGravity();
                 AllowPlayerToMove();
+                GetComponent<ClearLeashPath>().doClearPath = false;
                 //rd.DeactivateRagdoll();
             }
         }
@@ -82,6 +83,7 @@ public class RagdollEnemy : MonoBehaviour
             -FPSController.playerTransform.forward;
         rd.ActivateRagdoll();
 
+        GetComponent<ClearLeashPath>().doClearPath = true;
 
         var force = WallRun.isWallRunning ? 4000 : 2000;
         rd.AddForce(pullVector * force);
@@ -126,6 +128,7 @@ public class RagdollEnemy : MonoBehaviour
         //Debug.Log("Take Damage");
 
         health -= amt;
+        GetComponent<Animator>().Play("Zombie Reaction Hit");
 
         if (health <= 50 && !IsStunned)
         {

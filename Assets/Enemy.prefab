@@ -1925,6 +1925,7 @@ GameObject:
   - component: {fileID: 8421352960436370185}
   - component: {fileID: 5888645369725384915}
   - component: {fileID: 1234487172284541215}
+  - component: {fileID: 3259838878399969378}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -1995,6 +1996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  dropHealth: 20
   explosion: {fileID: 7683202169660175309, guid: cbf062c370ead4c43b326af603e0091c,
     type: 3}
   blinkIntensity: 10
@@ -2037,6 +2039,24 @@ MonoBehaviour:
   anim: {fileID: 0}
   detectionRange: 10
   runAway: 0
+--- !u!114 &3259838878399969378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5815550713226898283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9971cbc7e173c9c4ead66b8ebdfbcc62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy:
+    serializedVersion: 2
+    m_Bits: 64
+  doClearPath: 0
+  enemiesList: []
+  dirList: []
 --- !u!1 &5929117109401249539
 GameObject:
   m_ObjectHideFlags: 0
