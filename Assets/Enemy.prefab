@@ -1996,8 +1996,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  shatteredModel: {fileID: 8767355135477952997, guid: 4402d3c1b37d1e14eb1a517b41561122,
+    type: 3}
   dropHealth: 20
   explosion: {fileID: 7683202169660175309, guid: cbf062c370ead4c43b326af603e0091c,
+    type: 3}
+  hitBlood: {fileID: 7683202169660175309, guid: 17a1012e3996728458ffa33694ae57c0,
     type: 3}
   blinkIntensity: 10
   blinkDuration: 0.5

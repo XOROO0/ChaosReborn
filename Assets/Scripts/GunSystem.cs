@@ -120,8 +120,7 @@ public class GunSystem : MonoBehaviour
             {
                 if((whatIsEnemy & (1 << rayHit.collider.gameObject.layer)) != 0) 
                 {
-                    rayHit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(damage);
-                    rayHit.transform.root.GetComponent<RagdollEnemy>().PushBack();
+                    rayHit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(damage, rayHit.point, rayHit.normal);
                 }
 
                 //Graphics
@@ -170,7 +169,7 @@ public class GunSystem : MonoBehaviour
             {
                 if ((whatIsEnemy & (1 << hit.collider.gameObject.layer)) != 0)
                 {
-                    hit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(100);
+                    hit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(100, hit.point, hit.normal);
                     bulletsLeft = Mathf.Clamp(bulletsLeft + bulletsAdd, 0, magazineSize);
                     timer = 0f;
                 }

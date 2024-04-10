@@ -1,3 +1,4 @@
+using DitzeGames.Effects;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
@@ -9,9 +10,11 @@ public class RagdollEnemy : MonoBehaviour
 {
     [SerializeField]
     private int health = 200;
+    [SerializeField] private Transform shatteredModel;
     public int dropHealth = 20;
 
     [SerializeField] GameObject explosion;
+    [SerializeField] GameObject hitBlood;
 
     Ragdoll rd;
 
@@ -104,31 +107,20 @@ public class RagdollEnemy : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
-/*    public void StopMoving()
-    {
-        update = false;
-    }*/
 
-    private void FixedUpdate()
-    {
-/*        if(update)
-        {
-            var dir = FPSController.playerTransform.up *
-                Input.GetAxis("Mouse Y") * 20 + FPSController.playerTransform.right
-                * Input.GetAxis("Mouse X") * 10;
-
-            rd.AddForce(dir);
-        }*/
-    }
-
-    
-
-    public void TakeDamage(int amt)
+    public void TakeDamage(int amt, Vector3 hitPoint, Vector3 hitNormal)
     {
         //Debug.Log("Take Damage");
 
         health -= amt;
         GetComponent<Animator>().Play("Zombie Reaction Hit");
+
+        CameraEffects.ShakeOnce(0.2f);
+
+        Instantiate(shatteredModel.GetChild(Random.Range(0, 23)), hitPoint, Quaternion.identity).GetComponent<Rigidbody>().
+            AddForce(Random.insideUnitSphere * 2f, ForceMode.Impulse);
+
+        Instantiate(hitBlood, rd.hipPosition, Quaternion.LookRotation(hitNormal, transform.up));
 
         if (health <= 50 && !IsStunned)
         {
@@ -136,11 +128,12 @@ public class RagdollEnemy : MonoBehaviour
         }
 
         if (health <= 0)
-            Die();
+            Die(); 
     }
 
     private void Die()
     {
+        Instantiate(shatteredModel, transform.position, transform.rotation);
         Instantiate(explosion, rd.hipPosition, Quaternion.identity);
         AudioManager.instance.Play("Splash");
 
@@ -171,9 +164,5 @@ public class RagdollEnemy : MonoBehaviour
         FPSController.canMove = true;
     }
 
-    public void PushBack()
-    {
-        //transform.Translate();
-    }
 
 }
