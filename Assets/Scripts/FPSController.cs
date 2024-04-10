@@ -22,6 +22,7 @@ public class FPSController : MonoBehaviour
     [SerializeField] private float slideForce;
     [SerializeField] private float slideTimer;
     [SerializeField] private float slideYScale;
+    [SerializeField] private float jumpPadForce=10f;
 
     private float startYScale;
     public static bool isSliding;
@@ -99,6 +100,7 @@ public class FPSController : MonoBehaviour
 
         HandleInput();
         HandleDrag();
+       
 
         if(Input.GetKeyDown(KeyCode.Space) && allowedJumps > 0 && !WallRun.isWallRunning)
         {
@@ -121,9 +123,6 @@ public class FPSController : MonoBehaviour
             HandleGravity();
         }
 
-
-        if (isSliding)
-            SlidingMovement();
     }
 
     private void HandleGravity()
@@ -145,15 +144,8 @@ public class FPSController : MonoBehaviour
 
         IsMoving = horizontalMovement != 0 || verticalMovement != 0;
 
-        if(Input.GetKeyDown(KeyCode.LeftShift) && IsMoving && isGrounded)
-        {
-            StartSlide();
-        }
 
-        if(Input.GetKeyUp(KeyCode.LeftShift) && isSliding)
-        {
 
-        }
 
 
         moveDirection =
@@ -198,37 +190,25 @@ public class FPSController : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
+    //jUMP paD
 
-    private void StartSlide()
+    private void handleJumpPad()
     {
-        isSliding = true;
+        Debug.Log("Jumpinggg");
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        rb.AddForce(Vector3.up * jumpPadForce, ForceMode.Impulse);
+    }
+    private void OnTriggerEnter(Collider JP)
+    {
 
-        playerOBJ.localScale = new Vector3(playerOBJ.localScale.x,
-            slideYScale, playerOBJ.localScale.z);
-
-        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-
-        slideTimer = maxSlideTime;
+        if(JP.gameObject.CompareTag("JumpPad"))
+        {
+           handleJumpPad();
+        }
     }
 
-    private void SlidingMovement()
-    {
-        Vector3 inputDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
 
-        rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
-
-        slideTimer -= Time.deltaTime;
-
-        if (slideTimer <= 0)
-            StopSlide();
-    }
-
-    private void StopSlide()
-    {
-        isSliding = false;
-
-        playerOBJ.localScale = new Vector3(playerOBJ.localScale.x,
-            startYScale, playerOBJ.localScale.z);
-    }
 
 }
+
+

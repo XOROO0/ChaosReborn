@@ -13,6 +13,8 @@ public class ClearLeashPath : MonoBehaviour
     public List<Transform> enemiesList;
     public List<Vector3> dirList;
 
+    [SerializeField] private float moveDistance = 2f;
+
     Transform cam;
 
     private void Start()
@@ -43,11 +45,11 @@ public class ClearLeashPath : MonoBehaviour
 
             if (enemyScreenPos.x > Screen.width / 2)
             {
-                enemy.Translate(FPSController.playerTransform.right * 0.1f, Space.World);
+                enemy.Translate(FPSController.playerTransform.right * moveDistance * Time.deltaTime, Space.World);
             }
             else if (enemyScreenPos.x < Screen.width / 2)
             {
-                enemy.Translate(-FPSController.playerTransform.right * 0.1f, Space.World);
+                enemy.Translate(-FPSController.playerTransform.right * moveDistance * Time.deltaTime, Space.World);
             }
         }
     }

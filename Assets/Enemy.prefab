@@ -2061,6 +2061,7 @@ MonoBehaviour:
   doClearPath: 0
   enemiesList: []
   dirList: []
+  moveDistance: 7
 --- !u!1 &5929117109401249539
 GameObject:
   m_ObjectHideFlags: 0

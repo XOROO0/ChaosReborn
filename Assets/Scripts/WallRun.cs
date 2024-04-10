@@ -10,6 +10,8 @@ public class WallRun : MonoBehaviour
     [SerializeField] float minimumJumpHeight = 1.5f;
     [SerializeField] float wallRunGravity;
     [SerializeField] float wallJumpForce;
+    [SerializeField] Transform groundCheck;
+    [SerializeField] LayerMask groundLayer;
 
     [Header("FX")]
     [SerializeField] private Camera cam;
@@ -39,13 +41,13 @@ public class WallRun : MonoBehaviour
 
     bool CanWallRun()
     {
-        return !Physics.Raycast(transform.position, Vector3.down, minimumJumpHeight);
+        return !Physics.Raycast(transform.position, Vector3.down, minimumJumpHeight, groundLayer);
     }
 
     void CheckWall()
     {
-        wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallDistance);
-        wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallDistance);
+        wallLeft = Physics.Raycast(groundCheck.position, -orientation.right, out leftWallHit, wallDistance);
+        wallRight = Physics.Raycast(groundCheck.position, orientation.right, out rightWallHit, wallDistance);
 
 
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
@@ -60,16 +62,18 @@ public class WallRun : MonoBehaviour
     {
         CheckWall();
 
+        Debug.Log(CanWallRun());
+        
         if(CanWallRun())
         {
             if(wallLeft)
             {
-                Debug.Log("Wall Run Left");
+                //Debug.Log("Wall Run Left");
                 StartWallRun();
             }
             else if(wallRight)
             {
-                Debug.Log("Wall Run Right");
+                //Debug.Log("Wall Run Right");
                 StartWallRun();
             }
             else
@@ -79,7 +83,7 @@ public class WallRun : MonoBehaviour
         }
         else
         {
-            StopWallRun();
+            StopWallRun();  
         }
     }
 
@@ -121,6 +125,8 @@ public class WallRun : MonoBehaviour
 
     void StopWallRun()
     {
+        //Debug.Log("Stop Wall Run");
+
         isWallRunning = false;
         rb.useGravity = true;
 
