@@ -117,24 +117,25 @@ public class RagdollEnemy : MonoBehaviour
 
         CameraEffects.ShakeOnce(0.2f);
 
+        if (health <= 0)
+            Die();
+
         Instantiate(shatteredModel.GetChild(Random.Range(0, 23)), hitPoint, Quaternion.identity).GetComponent<Rigidbody>().
             AddForce(Random.insideUnitSphere * 2f, ForceMode.Impulse);
 
-        Instantiate(hitBlood, rd.hipPosition, Quaternion.LookRotation(hitNormal, transform.up));
+        Instantiate(hitBlood, hitPoint, Quaternion.LookRotation(hitNormal, transform.up));
 
         if (health <= 50 && !IsStunned)
         {
             Stunned();
         }
 
-        if (health <= 0)
-            Die(); 
     }
 
     private void Die()
     {
         Instantiate(shatteredModel, transform.position, transform.rotation);
-        Instantiate(explosion, rd.hipPosition, Quaternion.identity);
+        Instantiate(explosion, rd.hipPosition, Quaternion.LookRotation(transform.forward, transform.up));
         AudioManager.instance.Play("Splash");
 
         if(update)
@@ -143,7 +144,7 @@ public class RagdollEnemy : MonoBehaviour
                 GetComponentInParent<PlayerHealth>().AddHealth(dropHealth);
         }
 
-        //CameraShake.Shake(0.2f, 2f);
+        CameraEffects.ShakeOnce(0.3f, 15);
         Destroy(gameObject);
     }
 

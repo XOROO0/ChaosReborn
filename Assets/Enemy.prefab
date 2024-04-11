@@ -1999,9 +1999,9 @@ MonoBehaviour:
   shatteredModel: {fileID: 8767355135477952997, guid: 4402d3c1b37d1e14eb1a517b41561122,
     type: 3}
   dropHealth: 20
-  explosion: {fileID: 7683202169660175309, guid: cbf062c370ead4c43b326af603e0091c,
+  explosion: {fileID: 6079974903286459223, guid: 5a5f7ee09f6be994883bc2f19e32b314,
     type: 3}
-  hitBlood: {fileID: 7683202169660175309, guid: 17a1012e3996728458ffa33694ae57c0,
+  hitBlood: {fileID: 6079974903286459223, guid: 3e32ae2f2038a814a907354f767b70d8,
     type: 3}
   blinkIntensity: 10
   blinkDuration: 0.5
