@@ -12,6 +12,7 @@ public class WallRun : MonoBehaviour
     [SerializeField] float wallJumpForce;
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] LayerMask wallLayer;
 
     [Header("FX")]
     [SerializeField] private Camera cam;
@@ -46,8 +47,8 @@ public class WallRun : MonoBehaviour
 
     void CheckWall()
     {
-        wallLeft = Physics.Raycast(groundCheck.position, -orientation.right, out leftWallHit, wallDistance);
-        wallRight = Physics.Raycast(groundCheck.position, orientation.right, out rightWallHit, wallDistance);
+        wallLeft = Physics.Raycast(groundCheck.position, -orientation.right, out leftWallHit, wallDistance, wallLayer);
+        wallRight = Physics.Raycast(groundCheck.position, orientation.right, out rightWallHit, wallDistance, wallLayer);
 
 
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
@@ -62,7 +63,6 @@ public class WallRun : MonoBehaviour
     {
         CheckWall();
 
-        Debug.Log(CanWallRun());
         
         if(CanWallRun())
         {
@@ -83,7 +83,13 @@ public class WallRun : MonoBehaviour
         }
         else
         {
-            StopWallRun();  
+            
+            if(isWallRunning)
+            {
+                rb.useGravity = true;
+            }
+
+            StopWallRun();
         }
     }
 
@@ -128,7 +134,6 @@ public class WallRun : MonoBehaviour
         //Debug.Log("Stop Wall Run");
 
         isWallRunning = false;
-        rb.useGravity = true;
 
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, fov, wallRunfovTime * Time.deltaTime);
         tilt = Mathf.Lerp(tilt, 0, camTiltTime * Time.deltaTime);

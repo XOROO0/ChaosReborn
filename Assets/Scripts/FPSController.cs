@@ -107,6 +107,7 @@ public class FPSController : MonoBehaviour
             Jump();
         }
 
+        
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
 
         currentPos = transform.position;
@@ -143,9 +144,6 @@ public class FPSController : MonoBehaviour
         verticalMovement = Input.GetAxisRaw("Vertical");
 
         IsMoving = horizontalMovement != 0 || verticalMovement != 0;
-
-
-
 
 
         moveDirection =
@@ -192,7 +190,7 @@ public class FPSController : MonoBehaviour
     }
     //jUMP paD
 
-    private void handleJumpPad()
+    private void HandleJumpPad()
     {
         Debug.Log("Jumpinggg");
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
@@ -203,7 +201,7 @@ public class FPSController : MonoBehaviour
 
         if(JP.gameObject.CompareTag("JumpPad"))
         {
-           handleJumpPad();
+           HandleJumpPad();
         }
     }
 
