@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 16654409}
   - component: {fileID: 16654408}
   - component: {fileID: 16654407}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pillar 1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3533,7 +3533,7 @@ GameObject:
   - component: {fileID: 264473944}
   - component: {fileID: 264473943}
   - component: {fileID: 264473942}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6016,7 +6016,7 @@ GameObject:
   - component: {fileID: 284227513}
   - component: {fileID: 284227512}
   - component: {fileID: 284227511}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: P5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7750,7 +7750,7 @@ GameObject:
   - component: {fileID: 335726249}
   - component: {fileID: 335726248}
   - component: {fileID: 335726247}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8074,7 +8074,7 @@ GameObject:
   - component: {fileID: 347681524}
   - component: {fileID: 347681523}
   - component: {fileID: 347681522}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cannon (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10301,7 +10301,7 @@ GameObject:
   - component: {fileID: 403097375}
   - component: {fileID: 403097374}
   - component: {fileID: 403097373}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11683,7 +11683,7 @@ GameObject:
   - component: {fileID: 500408166}
   - component: {fileID: 500408165}
   - component: {fileID: 500408164}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: P4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13760,7 +13760,7 @@ GameObject:
   - component: {fileID: 676473905}
   - component: {fileID: 676473904}
   - component: {fileID: 676473903}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Chain (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15048,7 +15048,7 @@ GameObject:
   - component: {fileID: 682827279}
   - component: {fileID: 682827278}
   - component: {fileID: 682827277}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Chain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17348,7 +17348,7 @@ GameObject:
   - component: {fileID: 752841012}
   - component: {fileID: 752841011}
   - component: {fileID: 752841010}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: P6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18301,7 +18301,7 @@ GameObject:
   - component: {fileID: 776381683}
   - component: {fileID: 776381682}
   - component: {fileID: 776381681}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cannon (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20363,7 +20363,7 @@ GameObject:
   - component: {fileID: 836557852}
   - component: {fileID: 836557851}
   - component: {fileID: 836557850}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20687,7 +20687,7 @@ GameObject:
   - component: {fileID: 836656326}
   - component: {fileID: 836656325}
   - component: {fileID: 836656324}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: P3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21011,7 +21011,7 @@ GameObject:
   - component: {fileID: 854862627}
   - component: {fileID: 854862626}
   - component: {fileID: 854862625}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pillar 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23133,7 +23133,7 @@ GameObject:
   - component: {fileID: 907594530}
   - component: {fileID: 907594529}
   - component: {fileID: 907594528}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: P2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23456,7 +23456,7 @@ GameObject:
   - component: {fileID: 916086805}
   - component: {fileID: 916086804}
   - component: {fileID: 916086803}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: JumpPad (5)
   m_TagString: JumpPad
   m_Icon: {fileID: 0}
@@ -24386,7 +24386,7 @@ GameObject:
   - component: {fileID: 1041847368}
   - component: {fileID: 1041847367}
   - component: {fileID: 1041847366}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: JumpPad (4)
   m_TagString: JumpPad
   m_Icon: {fileID: 0}
@@ -24697,7 +24697,7 @@ GameObject:
   - component: {fileID: 1079217156}
   - component: {fileID: 1079217155}
   - component: {fileID: 1079217154}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25143,7 +25143,7 @@ GameObject:
   - component: {fileID: 1098057466}
   - component: {fileID: 1098057465}
   - component: {fileID: 1098057464}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pillar 1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30549,7 +30549,7 @@ GameObject:
   - component: {fileID: 1357650949}
   - component: {fileID: 1357650948}
   - component: {fileID: 1357650947}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30990,7 +30990,7 @@ GameObject:
   - component: {fileID: 1409203900}
   - component: {fileID: 1409203899}
   - component: {fileID: 1409203898}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stair 1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33064,7 +33064,7 @@ GameObject:
   - component: {fileID: 1486110881}
   - component: {fileID: 1486110880}
   - component: {fileID: 1486110879}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33903,7 +33903,7 @@ GameObject:
   - component: {fileID: 1556503422}
   - component: {fileID: 1556503421}
   - component: {fileID: 1556503420}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: P1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34227,7 +34227,7 @@ GameObject:
   - component: {fileID: 1568021481}
   - component: {fileID: 1568021480}
   - component: {fileID: 1568021479}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pillar 1 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35515,7 +35515,7 @@ GameObject:
   - component: {fileID: 1577901160}
   - component: {fileID: 1577901159}
   - component: {fileID: 1577901158}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bar 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37217,7 +37217,7 @@ GameObject:
   - component: {fileID: 1590473039}
   - component: {fileID: 1590473038}
   - component: {fileID: 1590473037}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bar 2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38652,6 +38652,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b6d45e9375652fe46ac9fd9360889f42,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5233112405309087440, guid: b6d45e9375652fe46ac9fd9360889f42,
         type: 3}
       propertyPath: m_Layer
@@ -38688,7 +38693,7 @@ GameObject:
   - component: {fileID: 1608228410}
   - component: {fileID: 1608228409}
   - component: {fileID: 1608228408}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40523,7 +40528,7 @@ GameObject:
   - component: {fileID: 1705789763}
   - component: {fileID: 1705789762}
   - component: {fileID: 1705789761}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stair 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42367,7 +42372,7 @@ GameObject:
   - component: {fileID: 1800288329}
   - component: {fileID: 1800288328}
   - component: {fileID: 1800288327}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cannon (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44429,7 +44434,7 @@ GameObject:
   - component: {fileID: 1818796599}
   - component: {fileID: 1818796598}
   - component: {fileID: 1818796597}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bar 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46948,7 +46953,7 @@ GameObject:
   - component: {fileID: 1882614760}
   - component: {fileID: 1882614759}
   - component: {fileID: 1882614758}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Chain (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48347,7 +48352,7 @@ GameObject:
   - component: {fileID: 1915973409}
   - component: {fileID: 1915973408}
   - component: {fileID: 1915973407}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51370,7 +51375,7 @@ GameObject:
   - component: {fileID: 2130453214}
   - component: {fileID: 2130453213}
   - component: {fileID: 2130453212}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
