@@ -11,6 +11,7 @@ public class Dash : MonoBehaviour
 
     Rigidbody rb;
     private float timer;
+    private bool isDashing = false;
 
     private void Update()
     {
@@ -25,15 +26,16 @@ public class Dash : MonoBehaviour
             + FPSController.playerTransform.transform.right * horizontalMovement;
 
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && timer <= 0)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && timer <= 0 && !isDashing)
         {
-
             PerformDash(moveDirection);
         }
     }
 
     private void PerformDash(Vector3 moveDir)
     {
+        isDashing = true;
+        StartCoroutine(SetFOV(Camera.main.fieldOfView, 100, 0.1f));
         rb = GetComponent<Rigidbody>();
 
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
@@ -47,7 +49,29 @@ public class Dash : MonoBehaviour
 
     private void StopDash()
     {
+        StartCoroutine(SetFOV(Camera.main.fieldOfView, 90, 0.1f));
+        rb.velocity = new Vector3(0, rb.velocity.y, 0);
+        isDashing = false;
+
+        Invoke(nameof(FinishStopDash), 0.1f);
+    }
+
+    private void FinishStopDash()
+    {
         rb.useGravity = true;
         timer = dashCoolDown;
+    }
+
+    private IEnumerator SetFOV(float currentFOV, float targetFOV, float duration)
+    {
+        for (float t = 0f; t < duration; t += Time.deltaTime) 
+        {
+            Camera.main.fieldOfView = Mathf.Lerp(
+                currentFOV, targetFOV, t / duration);
+
+            yield return null;
+        }
+
+        Camera.main.fieldOfView = targetFOV;
     }
 }

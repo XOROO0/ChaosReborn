@@ -108,7 +108,7 @@ public class RagdollEnemy : MonoBehaviour
     }
 
 
-    public void TakeDamage(int amt, Vector3 hitPoint, Vector3 hitNormal)
+    public void TakeDamage(int amt, Vector3 hitPoint, Vector3 hitNormal, bool rocket)
     {
         //Debug.Log("Take Damage");
 
@@ -118,7 +118,7 @@ public class RagdollEnemy : MonoBehaviour
         CameraEffects.ShakeOnce(0.2f);
 
         if (health <= 0)
-            Die();
+            Die(rocket);
 
         Instantiate(shatteredModel.GetChild(Random.Range(0, 23)), hitPoint, Quaternion.identity).GetComponent<Rigidbody>().
             AddForce(Random.insideUnitSphere * 2f, ForceMode.Impulse);
@@ -132,9 +132,20 @@ public class RagdollEnemy : MonoBehaviour
 
     }
 
-    private void Die()
+    private void Die(bool rocket)
     {
-        Instantiate(shatteredModel, transform.position, transform.rotation);
+        if(rocket)
+        {
+            Instantiate(shatteredModel, transform.position, transform.rotation).
+                GetComponent<ShatteredEnemy>().RocketBlast();
+        }
+        else
+        {
+            Instantiate(shatteredModel, transform.position, transform.rotation).
+                GetComponent<ShatteredEnemy>().RegularBlast();
+        }
+
+
         Instantiate(explosion, rd.hipPosition, Quaternion.LookRotation(transform.forward, transform.up));
         AudioManager.instance.Play("Splash");
 

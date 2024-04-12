@@ -8,14 +8,26 @@ public class ShatteredEnemy : MonoBehaviour
 
     public float force = 10;
 
-    void Start()
+    void Awake()
     {
         rbs = GetComponentsInChildren<Rigidbody>();
+    }
 
-        foreach (Rigidbody rb in rbs) 
+    public void RegularBlast()
+    {
+        foreach (Rigidbody rb in rbs)
         {
             var dir = Random.insideUnitCircle * force;
             rb.AddForce(FPSController.playerTransform.forward * dir, ForceMode.Impulse);
+        }
+    }
+
+    public void RocketBlast()
+    {
+        foreach (Rigidbody rb in rbs)
+        {
+            var dir = Random.insideUnitSphere * force;
+            rb.AddForce(dir, ForceMode.Impulse);
         }
     }
 

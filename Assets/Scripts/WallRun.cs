@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class WallRun : MonoBehaviour
 {
@@ -69,15 +70,25 @@ public class WallRun : MonoBehaviour
             if(wallLeft)
             {
                 //Debug.Log("Wall Run Left");
+                if (!isWallRunning)
+                    StartCoroutine(SetFOV(Camera.main.fieldOfView, wallRunfov, 0.1f));
                 StartWallRun();
             }
             else if(wallRight)
             {
                 //Debug.Log("Wall Run Right");
+                if (!isWallRunning)
+                    StartCoroutine(SetFOV(Camera.main.fieldOfView, wallRunfov, 0.1f));
                 StartWallRun();
             }
             else
             {
+                if (isWallRunning)
+                {
+                    StartCoroutine(SetFOV(Camera.main.fieldOfView, fov, 0.1f));
+                    rb.useGravity = true;
+                }
+
                 StopWallRun();
             }
         }
@@ -86,9 +97,10 @@ public class WallRun : MonoBehaviour
             
             if(isWallRunning)
             {
+                StartCoroutine(SetFOV(Camera.main.fieldOfView, fov, 0.1f));
                 rb.useGravity = true;
             }
-
+            
             StopWallRun();
         }
     }
@@ -101,7 +113,7 @@ public class WallRun : MonoBehaviour
         rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Force);
         rb.AddForce(wallRight ? orientation.right : -orientation.right * 5f, ForceMode.Force);
 
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunfov, wallRunfovTime * Time.deltaTime);
+        //cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunfov, wallRunfovTime * Time.deltaTime);
 
         if(wallLeft)
         {
@@ -114,7 +126,8 @@ public class WallRun : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            if(wallLeft)
+
+            if (wallLeft)
             {
                 Vector3 wallRunJumpDirection = transform.up + leftWallHit.normal;
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
@@ -135,9 +148,22 @@ public class WallRun : MonoBehaviour
 
         isWallRunning = false;
 
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, fov, wallRunfovTime * Time.deltaTime);
+        //cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, fov, wallRunfovTime * Time.deltaTime);
         tilt = Mathf.Lerp(tilt, 0, camTiltTime * Time.deltaTime);
     }
 
-    
+    private IEnumerator SetFOV(float currentFOV, float targetFOV, float duration)
+    {
+        for (float t = 0f; t < duration; t += Time.deltaTime)
+        {
+            Camera.main.fieldOfView = Mathf.Lerp(
+                currentFOV, targetFOV, t / duration);
+
+            yield return null;
+        }
+
+        Camera.main.fieldOfView = targetFOV;
+    }
+
+
 }

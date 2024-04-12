@@ -32,10 +32,11 @@ public class EquippingScript : MonoBehaviour
             equipped = Slot2.transform;
         }
 
-      /* if (Input.GetKeyDown("3"))
+        if (Input.GetKeyDown("3"))
         {
             Equip3();
-        }*/
+            equipped = Slot3.transform;
+        }
     }
 
     void Equip1()
@@ -52,10 +53,10 @@ public class EquippingScript : MonoBehaviour
         Slot3.SetActive(false);
     }
 
-   /* void Equip3()
+    void Equip3()
     {
         Slot1.SetActive(false);
         Slot2.SetActive(false);
         Slot3.SetActive(true);
-    }*/
+    }
 }

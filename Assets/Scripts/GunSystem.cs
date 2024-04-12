@@ -2,6 +2,8 @@ using UnityEngine;
 using TMPro;
 using DitzeGames.Effects;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Linq;
 
 public class GunSystem : MonoBehaviour
 {
@@ -16,6 +18,9 @@ public class GunSystem : MonoBehaviour
     public int bulletsAdd;
     public float coolDownForSmash = 10;
     public Image smashImage;
+    public float rocketLauncherRadius = 2f;
+    public GameObject explosionEffect;
+    public GameObject missile;
 
     //bools
     bool shooting, readyToShoot, reloading;
@@ -42,6 +47,8 @@ public class GunSystem : MonoBehaviour
     private float timer;
 
     public Recoil recoil;
+
+    Vector3 hitPoint;
     private void Awake()
     {
         bulletsLeft = magazineSize;
@@ -66,6 +73,8 @@ public class GunSystem : MonoBehaviour
                 if (transform.name == "AR")
                     anim.Play("Gun_Hit");
                 else if (transform.name == "Shotgun")
+                    anim.Play("Gun_Hit_S");
+                else if (transform.name == "RocketLauncher")
                     anim.Play("Gun_Hit_S");
             }
         }
@@ -93,9 +102,15 @@ public class GunSystem : MonoBehaviour
     }
     private void Shoot()
     {
+
         recoil.RecoilFire();
         /*CameraShake.Shake(0.1f, camShakeSterngth);*/
         CameraEffects.ShakeOnce(Duration, Speed, Amount, Camera.main, DeltaMovement, Curve);
+
+        if (transform.name == "Shotgun")
+            Camera.main.transform.GetComponent<Animator>().Play("ShotGunShoot_Cam");
+        else if (transform.name == "RocketLauncher")
+            Camera.main.transform.GetComponent<Animator>().Play("RocketLauncherShoot_Cam");
 
         if (transform.name == "AR")
             AudioManager.instance.Play("AR_Shot");
@@ -115,12 +130,20 @@ public class GunSystem : MonoBehaviour
         if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range, notPlayerMask))
         {
 
-
             if(rayHit.collider != null)
             {
-                if((whatIsEnemy & (1 << rayHit.collider.gameObject.layer)) != 0) 
+                hitPoint = rayHit.point;
+                if(transform.name == "RocketLauncher")
                 {
-                    rayHit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(damage, rayHit.point, rayHit.normal);
+                    FireRocket();
+                }
+                else
+                {
+
+                    if ((whatIsEnemy & (1 << rayHit.collider.gameObject.layer)) != 0)
+                    {
+                        rayHit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(damage, rayHit.point, rayHit.normal, false);
+                    }
                 }
 
                 //Graphics
@@ -133,6 +156,8 @@ public class GunSystem : MonoBehaviour
         muzzleFlash.Emit(1);
 
         anim.SetBool("Shooting", true);
+
+
 
         bulletsLeft--;
         bulletsShot--;
@@ -169,11 +194,37 @@ public class GunSystem : MonoBehaviour
             {
                 if ((whatIsEnemy & (1 << hit.collider.gameObject.layer)) != 0)
                 {
-                    hit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(100, hit.point, hit.normal);
+                    hit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(100, hit.point, hit.normal, false);
                     bulletsLeft = Mathf.Clamp(bulletsLeft + bulletsAdd, 0, magazineSize);
                     timer = 0f;
                 }
             }
         }
+    }
+
+    private void FireRocket()
+    {
+        Instantiate(missile, attackPoint.position, Quaternion.identity).
+            GetComponent<Missile>().MissileSetUp(hitPoint);
+    }
+
+    public void Explode()
+    {
+        Collider[] colliders = Physics.OverlapSphere(hitPoint, rocketLauncherRadius, whatIsEnemy);
+        List<RagdollEnemy> enemies = new List<RagdollEnemy>();
+
+        foreach (Collider collider in colliders)
+        {
+            enemies.Add(collider.transform.root.GetComponent<RagdollEnemy>());
+            enemies = enemies.Distinct().ToList();
+        }
+
+        foreach (RagdollEnemy enemy in enemies)
+        {
+            enemy.TakeDamage(100, hitPoint, Vector3.zero, true);
+        }
+
+        Instantiate(explosionEffect, hitPoint, Quaternion.identity);
+        CameraEffects.ShakeOnce(0.5f, 10, new Vector3(5, 5, 5));
     }
 }
