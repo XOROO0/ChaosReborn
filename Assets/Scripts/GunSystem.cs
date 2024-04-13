@@ -23,7 +23,8 @@ public class GunSystem : MonoBehaviour
     public GameObject missile;
 
     //bools
-    bool shooting, readyToShoot, reloading;
+    public bool shooting;
+    bool  readyToShoot, reloading;
 
     //Reference
     public Camera fpsCam;
@@ -77,13 +78,15 @@ public class GunSystem : MonoBehaviour
                     anim.Play("Gun_Hit_S");
                 else if (transform.name == "RocketLauncher")
                     anim.Play("Gun_Hit_S");
+                else if (transform.name == "Reaper" || transform.name == "Reaper (1)")
+                    anim.Play("Gun_Hit_S");
             }
         }
 
         //SetText
         text.SetText(bulletsLeft + " / " + magazineSize);
     }
-    private void MyInput()
+    public void MyInput()
     {
         if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
@@ -93,8 +96,9 @@ public class GunSystem : MonoBehaviour
         //Shoot
         if (readyToShoot && shooting && !reloading && bulletsLeft > 0 && allowToShoot)
         {
-            bulletsShot = bulletsPerTap;
-            Shoot();
+                bulletsShot = bulletsPerTap;
+                Shoot();
+
         }
         else
         {
@@ -198,7 +202,16 @@ public class GunSystem : MonoBehaviour
                 if ((whatIsEnemy & (1 << hit.collider.gameObject.layer)) != 0)
                 {
                     hit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(100, hit.point, hit.normal, false);
-                    bulletsLeft = Mathf.Clamp(bulletsLeft + bulletsAdd, 0, magazineSize);
+
+                    if(GetComponentInParent<DualRevolver>() != null)
+                    {
+                        GetComponentInParent<DualRevolver>().ReloadRevolvers();
+                    }
+                    else
+                    {
+                        bulletsLeft = Mathf.Clamp(bulletsLeft + bulletsAdd, 0, magazineSize);
+                    }
+
                     timer = 0f;
                 }
             }
@@ -229,5 +242,10 @@ public class GunSystem : MonoBehaviour
 
         Instantiate(explosionEffect, hitPoint, Quaternion.identity);
         CameraEffects.ShakeOnce(0.5f, 10, new Vector3(5, 5, 5));
+    }
+
+    public void RevolverReload()
+    {
+        bulletsLeft = Mathf.Clamp(bulletsLeft + bulletsAdd, 0, magazineSize);
     }
 }
