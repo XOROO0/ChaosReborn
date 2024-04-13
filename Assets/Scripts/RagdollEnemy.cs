@@ -18,7 +18,7 @@ public class RagdollEnemy : MonoBehaviour
 
     Ragdoll rd;
 
-    bool update = false;
+    string update;
 
     public float blinkIntensity;
     public float blinkDuration;
@@ -50,22 +50,28 @@ public class RagdollEnemy : MonoBehaviour
         if (blinkTimer <= 0 && IsStunned)
             blinkTimer = blinkDuration;
 
-        if(update)
+        if(update == "PULL")
         {
-            //Debug.Log(Vector3.Distance(FPSController.playerTransform.position, transform.GetChild(1).position));
-
-
             if(Vector3.Distance(FPSController.playerTransform.position,
                 transform.GetChild(1).position) < 2)
             {
-
-                Debug.Log("Punch Enemy");
 
                 rd.StopAllForces();
                 rd.DisableGravity();
                 AllowPlayerToMove();
                 GetComponent<ClearLeashPath>().doClearPath = false;
-                //rd.DeactivateRagdoll();
+            }
+        }
+        else if(update == "PUSH")
+        {
+            if (Vector3.Distance(FPSController.playerTransform.position,
+                transform.GetChild(1).position) > 5)
+            {
+
+                rd.StopAllForces();
+                rd.DisableGravity();
+                AllowPlayerToMove();
+                GetComponent<ClearLeashPath>().doClearPath = false;
             }
         }
 
@@ -94,12 +100,28 @@ public class RagdollEnemy : MonoBehaviour
 
         rd.AddForce(transform.up * 300);
         //rd.DisableGravity();
-        flag = false;
 
         //Invoke(nameof(CheckForQ), 1f);
-        update = true;
+        update = "PULL";
         GetComponent<NavMeshAgent>().enabled = false;
         GetComponent<Normal_Enemy>().enabled = false;
+    }
+
+    public void Push()
+    {
+        Vector3 pushDir = FPSController.playerTransform.forward;
+
+        rd.ActivateRagdoll();
+
+        GetComponent<ClearLeashPath>().doClearPath = true;
+
+        rd.AddForce(pushDir * 1000);
+        rd.AddForce(transform.up * 300);
+
+        update = "PUSH";
+        GetComponent<NavMeshAgent>().enabled = false;
+        GetComponent<Normal_Enemy>().enabled = false;
+
     }
 
     IEnumerator Wait()
@@ -136,12 +158,12 @@ public class RagdollEnemy : MonoBehaviour
     {
         if(rocket)
         {
-            Instantiate(shatteredModel, transform.position, transform.rotation).
+            Instantiate(shatteredModel, transform.GetChild(1).position, transform.rotation).
                 GetComponent<ShatteredEnemy>().RocketBlast();
         }
         else
         {
-            Instantiate(shatteredModel, transform.position, transform.rotation).
+            Instantiate(shatteredModel, transform.GetChild(1).position, transform.rotation).
                 GetComponent<ShatteredEnemy>().RegularBlast();
         }
 
@@ -149,7 +171,7 @@ public class RagdollEnemy : MonoBehaviour
         Instantiate(explosion, rd.hipPosition, Quaternion.LookRotation(transform.forward, transform.up));
         AudioManager.instance.Play("Splash");
 
-        if(update)
+        if(update == "PULL" || update == "PUSH")
         {
             FPSController.playerTransform.
                 GetComponentInParent<PlayerHealth>().AddHealth(dropHealth);
@@ -166,10 +188,6 @@ public class RagdollEnemy : MonoBehaviour
         //transform.GetComponent<Normal_Enemy>().runAway = true;
     }
 
-    private void CheckForQ()
-    {
-        update = true;
-    }
 
     private void OnDestroy()
     {

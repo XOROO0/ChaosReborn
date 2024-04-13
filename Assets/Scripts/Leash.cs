@@ -13,6 +13,7 @@ public class Leash : MonoBehaviour
     public bool isLeashing;
 
     [SerializeField] LayerMask whatIsLeashable;
+    [SerializeField] float minLeashRange, maxLeashRange;
     public Transform leashPoint, cam;
 
     [HideInInspector] public bool resetLeash;
@@ -41,16 +42,23 @@ public class Leash : MonoBehaviour
     {
         RaycastHit hit;
 
-        if(Physics.Raycast(cam.position, cam.forward, out hit, 30, whatIsLeashable))
+        if(Physics.Raycast(cam.position, cam.forward, out hit, maxLeashRange, whatIsLeashable))
         {
             if(hit.transform.root.GetComponent<RagdollEnemy>().IsStunned)
             {
-                isLeashing = true;
-                caughtEnemy = hit.transform;
-                hitPoint = hit.point;
+                if(hit.distance >= minLeashRange)
+                {
+                    isLeashing = true;
+                    caughtEnemy = hit.transform;
+                    hitPoint = hit.point;
 
 
-                Invoke(nameof(PullLeash), 0.3f);
+                    Invoke(nameof(PullLeash), 0.3f);
+                }
+                else
+                {
+                    GetComponent<Kick>().DoKick(hit.transform);
+                }
             }
 
         }

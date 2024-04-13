@@ -7,6 +7,7 @@ public class ShatteredEnemy : MonoBehaviour
     private Rigidbody[] rbs;
 
     public float force = 10;
+    public float explosiveForce = 10;
 
     void Awake()
     {
@@ -17,8 +18,12 @@ public class ShatteredEnemy : MonoBehaviour
     {
         foreach (Rigidbody rb in rbs)
         {
-            var dir = Random.insideUnitCircle * force;
-            rb.AddForce(FPSController.playerTransform.forward * dir, ForceMode.Impulse);
+            //var dir = Random.insideUnitCircle * force;
+
+            var dir = FPSController.playerTransform.forward +
+                (FPSController.playerTransform.right * Random.Range(-3, 3));
+
+            rb.AddForce(dir * force, ForceMode.Impulse);
         }
     }
 
@@ -26,7 +31,7 @@ public class ShatteredEnemy : MonoBehaviour
     {
         foreach (Rigidbody rb in rbs)
         {
-            var dir = Random.insideUnitSphere * force;
+            var dir = Random.insideUnitSphere * explosiveForce;
             rb.AddForce(dir, ForceMode.Impulse);
         }
     }

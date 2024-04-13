@@ -1437,7 +1437,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7152d0922affb0e48b8780f9c4231c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 30
+  force: 10
+  explosiveForce: 30
 --- !u!1 &8373752250095037769 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8496932159986353337, guid: 38d24b22de6421b49a89d139c9748d4d,

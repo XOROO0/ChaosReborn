@@ -30,7 +30,7 @@ public class GunSystem : MonoBehaviour
     public Transform attackPoint;
     public RaycastHit rayHit;
     public LayerMask whatIsEnemy;
-    public LayerMask notPlayerMask;
+    public LayerMask playerMask;
 
     //Graphics
     public ParticleSystem muzzleFlash;
@@ -43,6 +43,7 @@ public class GunSystem : MonoBehaviour
     public float Speed = 10;
     public AnimationCurve Curve = AnimationCurve.EaseInOut(0, 1, 1, 0);
     public bool DeltaMovement = true;
+    public bool allowToShoot = true;
 
     private float timer;
 
@@ -90,7 +91,7 @@ public class GunSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading) Reload();
 
         //Shoot
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        if (readyToShoot && shooting && !reloading && bulletsLeft > 0 && allowToShoot)
         {
             bulletsShot = bulletsPerTap;
             Shoot();
@@ -111,6 +112,8 @@ public class GunSystem : MonoBehaviour
             Camera.main.transform.GetComponent<Animator>().Play("ShotGunShoot_Cam");
         else if (transform.name == "RocketLauncher")
             Camera.main.transform.GetComponent<Animator>().Play("RocketLauncherShoot_Cam");
+        else if (transform.name == "Reaper" || transform.name == "Reaper (1)")
+            Camera.main.transform.GetComponent<Animator>().Play("RevolverShoot_Cam", -1, 0f);
 
         if (transform.name == "AR")
             AudioManager.instance.Play("AR_Shot");
@@ -127,7 +130,7 @@ public class GunSystem : MonoBehaviour
         Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
 
         //RayCast
-        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range, notPlayerMask))
+        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range, ~playerMask))
         {
 
             if(rayHit.collider != null)

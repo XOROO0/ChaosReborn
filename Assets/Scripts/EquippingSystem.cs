@@ -8,6 +8,7 @@ public class EquippingScript : MonoBehaviour
     public GameObject Slot1;
     public GameObject Slot2;
     public GameObject Slot3;
+    public GameObject Slot4;
 
     public static Transform equipped;
 
@@ -37,6 +38,12 @@ public class EquippingScript : MonoBehaviour
             Equip3();
             equipped = Slot3.transform;
         }
+
+        if (Input.GetKeyDown("4"))
+        {
+            Equip4();
+            equipped = Slot4.transform;
+        }
     }
 
     void Equip1()
@@ -44,6 +51,7 @@ public class EquippingScript : MonoBehaviour
         Slot1.SetActive(true);
         Slot2.SetActive(false);
         Slot3.SetActive(false);
+        Slot4.SetActive(false);
     }
 
     void Equip2()
@@ -51,6 +59,7 @@ public class EquippingScript : MonoBehaviour
         Slot1.SetActive(false);
         Slot2.SetActive(true);
         Slot3.SetActive(false);
+        Slot4.SetActive(false);
     }
 
     void Equip3()
@@ -58,5 +67,14 @@ public class EquippingScript : MonoBehaviour
         Slot1.SetActive(false);
         Slot2.SetActive(false);
         Slot3.SetActive(true);
+        Slot4.SetActive(false);
+    }
+
+    void Equip4()
+    {
+        Slot1.SetActive(false);
+        Slot2.SetActive(false);
+        Slot3.SetActive(false);
+        Slot4.SetActive(true);
     }
 }
