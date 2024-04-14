@@ -56,7 +56,7 @@ public class Ranged_Enemy : Enemy
     {
         float distance = Vector3.Distance(Player.Position, transform.position);
 
-        if (distance > minRange && distance < maxRange)
+        if (distance > minRange - 1 && distance < maxRange +1)
         {
             return true;
         }

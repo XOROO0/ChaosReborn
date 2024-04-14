@@ -651,10 +651,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   muzzleFlash: {fileID: 8859182258175808002}
-  fireRate: 5
+  fireRate: 1
   magSize: 30
-  errorRadius: 3
-  reloadTime: 5
+  idleErrorRadius: 0
+  movingErrorRadius: 2.5
+  reloadTime: 3
 --- !u!1 &2194911622122000566
 GameObject:
   m_ObjectHideFlags: 0

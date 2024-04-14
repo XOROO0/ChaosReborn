@@ -11,10 +11,12 @@ public class Shooting_Enemy : MonoBehaviour
     public int fireRate;
     private float currentTime;
     public int magSize;
-    public float errorRadius;
+    public float idleErrorRadius;
+    public float movingErrorRadius;
     public float reloadTime;
     private int currentMag;
     private Coroutine reloadRoutine;
+    private float errorRadius;
 
     private void Start()
     {
@@ -24,6 +26,11 @@ public class Shooting_Enemy : MonoBehaviour
     void Update()
     {
         currentTime += Time.deltaTime;
+
+        if (FPSController.IsMoving)
+            errorRadius = movingErrorRadius;
+        else
+        errorRadius = idleErrorRadius;
 
         if (ranged_Enemy.canShoot && (currentTime > 1f/fireRate))
         {
