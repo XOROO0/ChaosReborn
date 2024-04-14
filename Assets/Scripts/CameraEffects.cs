@@ -111,7 +111,8 @@ namespace DitzeGames.Effects
         private void ResetCam()
         {
             //reset the last delta
-            Camera.transform.Translate(DeltaMovement ? -lastPos : Vector3.zero);
+            //Camera.transform.Translate(DeltaMovement ? -lastPos : Vector3.zero);
+            Camera.transform.localPosition = Vector3.zero;
             Camera.fieldOfView -= lastFoV;
 
             //clear values

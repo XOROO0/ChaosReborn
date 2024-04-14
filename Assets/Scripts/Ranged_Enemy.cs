@@ -10,7 +10,7 @@ public class Ranged_Enemy : Enemy
 {
     private Animator anim;
 
-    public bool canShoot => inRange() && hasLOS();
+    public bool canShoot => IsInDonut() && hasLOS();
     public float minRange;
     public float maxRange;
 

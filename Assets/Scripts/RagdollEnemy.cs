@@ -138,7 +138,10 @@ public class RagdollEnemy : MonoBehaviour
         health -= amt;
         GetComponent<Animator>().Play("Hit Reaction", -1, 0f);
 
-        CameraEffects.ShakeOnce(0.2f);
+        if(!rocket)
+            CameraEffects.ShakeOnce(0.2f);
+
+
 
         if (health <= 0)
             Die(rocket);
@@ -178,7 +181,9 @@ public class RagdollEnemy : MonoBehaviour
                 GetComponentInParent<PlayerHealth>().AddHealth(dropHealth);
         }
 
-        CameraEffects.ShakeOnce(0.3f, 15);
+        if(!rocket)
+            CameraEffects.ShakeOnce(0.3f, 15);
+
         Destroy(gameObject);
     }
 

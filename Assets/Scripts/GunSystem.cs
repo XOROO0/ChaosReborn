@@ -123,8 +123,12 @@ public class GunSystem : MonoBehaviour
             AudioManager.instance.Play("AR_Shot");
         else if (transform.name == "Shotgun")
             AudioManager.instance.Play("Shotgun_Shot");
+        else if (transform.name == "Reaper" || transform.name == "Reaper (1)")
+            AudioManager.instance.Play("Revolver_Shot");
+        else if (transform.name == "RocketLauncher")
+            AudioManager.instance.Play("Missile_Launch");
 
-        readyToShoot = false;
+            readyToShoot = false;
 
         //Spread4f,
         float x = Random.Range(-spread, spread);

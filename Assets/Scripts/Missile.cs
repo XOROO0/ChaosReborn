@@ -14,6 +14,7 @@ public class Missile : MonoBehaviour
         if (transform.position == hitPoint)
         {
             Camera.main.transform.GetChild(2).GetComponent<GunSystem>().Explode();
+            AudioManager.instance.Play("Missile_Explosion");
             Destroy(gameObject);
         }
 

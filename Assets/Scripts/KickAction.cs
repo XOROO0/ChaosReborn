@@ -17,7 +17,12 @@ public class KickAction : MonoBehaviour
         if (enemy == null)
             return;
 
+
+        AudioManager.instance.Play("Kick");
+
+        
+        CameraEffects.ShakeOnce(0.5f, 10);
+
         enemy.root.GetComponent<RagdollEnemy>().Push();
-        CameraEffects.ShakeOnce(0.5f, 5);
     }
 }
