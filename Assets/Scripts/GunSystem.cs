@@ -14,7 +14,7 @@ public class GunSystem : MonoBehaviour
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
-    int bulletsLeft, bulletsShot;
+    public int bulletsLeft, bulletsShot;
     public int bulletsAdd;
     public float coolDownForSmash = 10;
     public Image smashImage;

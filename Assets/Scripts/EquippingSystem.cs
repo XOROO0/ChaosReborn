@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EquippingScript : MonoBehaviour
@@ -9,6 +10,8 @@ public class EquippingScript : MonoBehaviour
     public GameObject Slot2;
     public GameObject Slot3;
     public GameObject Slot4;
+
+    public TextMeshProUGUI lowAmmoText;
 
     public static Transform equipped;
 
@@ -43,6 +46,31 @@ public class EquippingScript : MonoBehaviour
         {
             Equip4();
             equipped = Slot4.transform;
+        }
+
+        CheckAmmo();
+    }
+
+    private void CheckAmmo()
+    {
+        GunSystem gun = equipped.GetComponent<GunSystem>();
+
+        if(gun == null)
+        {
+            gun = equipped.GetComponentInChildren<GunSystem>();
+        }
+
+        if (gun == null)
+            return;
+
+
+        if ((float)gun.bulletsLeft / (float)gun.magazineSize <= 0.3f)
+        {
+            lowAmmoText.gameObject.SetActive(true);
+        }
+        else
+        {
+            lowAmmoText.gameObject.SetActive(false);
         }
     }
 

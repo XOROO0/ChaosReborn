@@ -1932,7 +1932,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6192969814730267299
 Transform:
   m_ObjectHideFlags: 0
@@ -2040,7 +2040,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 163165d25343f8440bb86c3eb5922ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
+  rayCastPlayerYOffset: 0
+  rayCastAiYOffset: 0
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 256
   detectionRange: 10
   runAway: 0
 --- !u!114 &3259838878399969378
@@ -3070,7 +3074,6 @@ GameObject:
   - component: {fileID: 2999432975114193141}
   - component: {fileID: 6527086118805849487}
   - component: {fileID: 1280695478455304941}
-  - component: {fileID: 7988923556005648844}
   m_Layer: 6
   m_Name: mixamorig:Hips
   m_TagString: Untagged
@@ -3087,7 +3090,7 @@ Transform:
   m_GameObject: {fileID: 8427353425522977242}
   serializedVersion: 2
   m_LocalRotation: {x: -0.10279339, y: 0.022408698, z: 0.00897166, w: 0.99440986}
-  m_LocalPosition: {x: 0.0033569336, y: 0.958019, z: -0.0059611006}
+  m_LocalPosition: {x: 0.0033569336, y: 0.95801926, z: -0.005954107}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3144,21 +3147,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &7988923556005648844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8427353425522977242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e752f6e7d62b3d8428a74fffdef81b81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ground:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!1 &8853490501125436228
 GameObject:
   m_ObjectHideFlags: 0

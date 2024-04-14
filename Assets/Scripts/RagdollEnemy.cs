@@ -24,6 +24,8 @@ public class RagdollEnemy : MonoBehaviour
     public float blinkDuration;
     float blinkTimer;
 
+
+
     public float Health { get { return health; } }
 
     public bool IsStunned = false;
@@ -85,7 +87,7 @@ public class RagdollEnemy : MonoBehaviour
     public void Pull()
     {
 
-        FPSController.canMove = false;
+        //FPSController.canMove = false;
 
 
         Vector3 pullVector = WallRun.isWallRunning ? -Camera.main.transform.forward :
@@ -103,8 +105,7 @@ public class RagdollEnemy : MonoBehaviour
 
         //Invoke(nameof(CheckForQ), 1f);
         update = "PULL";
-        GetComponent<NavMeshAgent>().enabled = false;
-        GetComponent<Normal_Enemy>().enabled = false;
+
     }
 
     public void Push()
@@ -135,7 +136,7 @@ public class RagdollEnemy : MonoBehaviour
         //Debug.Log("Take Damage");
 
         health -= amt;
-        GetComponent<Animator>().Play("Zombie Reaction Hit");
+        GetComponent<Animator>().Play("Hit Reaction", -1, 0f);
 
         CameraEffects.ShakeOnce(0.2f);
 
@@ -185,6 +186,12 @@ public class RagdollEnemy : MonoBehaviour
     {
         blinkTimer = blinkDuration;
         IsStunned = true;
+
+        GetComponent<NavMeshAgent>().enabled = false;
+        GetComponent<Enemy>().enabled = false;
+        GetComponent<Animator>().Play("Idle");
+        GetComponent<Animator>().enabled = false;
+
         //transform.GetComponent<Normal_Enemy>().runAway = true;
     }
 
