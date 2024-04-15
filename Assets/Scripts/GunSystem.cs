@@ -153,7 +153,6 @@ public class GunSystem : MonoBehaviour
 
                     if ((whatIsEnemy & (1 << rayHit.collider.gameObject.layer)) != 0)
                     {
-                        Debug.Log(rayHit.transform.root.name);
                         rayHit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(damage, rayHit.point, rayHit.normal, false);
                     }
                 }

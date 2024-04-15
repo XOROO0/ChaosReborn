@@ -12,6 +12,8 @@ public class Dash : MonoBehaviour
     Rigidbody rb;
     private float timer;
     private bool isDashing = false;
+    private bool dashToConsume = false;
+    private Vector3 moveDirection;
 
     private void Update()
     {
@@ -21,14 +23,23 @@ public class Dash : MonoBehaviour
         var verticalMovement = Input.GetAxisRaw("Vertical");
 
 
-        var moveDirection =
+       moveDirection =
             FPSController.playerTransform.transform.forward * verticalMovement
             + FPSController.playerTransform.transform.right * horizontalMovement;
 
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && timer <= 0 && !isDashing)
         {
+            dashToConsume = true;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if(dashToConsume)
+        {
             PerformDash(moveDirection);
+            dashToConsume = false;
         }
     }
 
