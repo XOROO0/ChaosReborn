@@ -33,6 +33,8 @@ public class RagdollEnemy : MonoBehaviour
 
     private bool flag = false;
 
+    private Vector3 pushDir;
+
     private void Start()
     {
         rd = GetComponent<Ragdoll>();
@@ -80,9 +82,10 @@ public class RagdollEnemy : MonoBehaviour
 
         if(IsStunned)
         {
-            if(Physics.CheckSphere(transform.GetChild(1).position, 2f, environmentLayer))
+            if(Physics.Raycast(rd.hipPosition, pushDir, 2, environmentLayer))
             {
-                TakeDamage(200, Vector3.zero, Vector3.zero, true);
+                if(transform.GetChild(1).GetComponent<Rigidbody>().velocity.magnitude > 5)
+                    TakeDamage(200, Vector3.zero, Vector3.zero, true);
             }
         }
 
@@ -109,7 +112,7 @@ public class RagdollEnemy : MonoBehaviour
         rd.AddForce(pullVector * force);
 
 
-        rd.AddForce(transform.up * 300);
+        rd.AddForce(transform.up * 100);
         //rd.DisableGravity();
 
         //Invoke(nameof(CheckForQ), 1f);
@@ -119,7 +122,7 @@ public class RagdollEnemy : MonoBehaviour
 
     public void Push()
     {
-        Vector3 pushDir = FPSController.playerTransform.forward;
+        pushDir = FPSController.playerTransform.forward;
 
         rd.ActivateRagdoll();
 
