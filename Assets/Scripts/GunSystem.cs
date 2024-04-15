@@ -206,6 +206,7 @@ public class GunSystem : MonoBehaviour
                 if ((whatIsEnemy & (1 << hit.collider.gameObject.layer)) != 0)
                 {
                     hit.transform.root.GetComponent<RagdollEnemy>().TakeDamage(100, hit.point, hit.normal, false);
+                    AudioManager.instance.Play("Kick");
 
                     if(GetComponentInParent<DualRevolver>() != null)
                     {

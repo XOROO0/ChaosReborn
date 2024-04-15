@@ -45,6 +45,7 @@ public class Dash : MonoBehaviour
 
     private void PerformDash(Vector3 moveDir)
     {
+        AudioManager.instance.Play("Dash");
         isDashing = true;
         StartCoroutine(SetFOV(Camera.main.fieldOfView, 100, 0.1f));
         rb = GetComponent<Rigidbody>();

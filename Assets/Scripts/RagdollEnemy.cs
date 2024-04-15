@@ -11,6 +11,7 @@ public class RagdollEnemy : MonoBehaviour
     [SerializeField]
     private int health = 200;
     [SerializeField] private Transform shatteredModel;
+    [SerializeField] private LayerMask environmentLayer;
     public int dropHealth = 20;
 
     [SerializeField] GameObject explosion;
@@ -67,13 +68,21 @@ public class RagdollEnemy : MonoBehaviour
         else if(update == "PUSH")
         {
             if (Vector3.Distance(FPSController.playerTransform.position,
-                transform.GetChild(1).position) > 5)
+                transform.GetChild(1).position) > 8)
             {
 
                 rd.StopAllForces();
                 rd.DisableGravity();
                 AllowPlayerToMove();
                 GetComponent<ClearLeashPath>().doClearPath = false;
+            }
+        }
+
+        if(IsStunned)
+        {
+            if(Physics.CheckSphere(transform.GetChild(1).position, 2f, environmentLayer))
+            {
+                TakeDamage(200, Vector3.zero, Vector3.zero, true);
             }
         }
 
@@ -116,7 +125,7 @@ public class RagdollEnemy : MonoBehaviour
 
         GetComponent<ClearLeashPath>().doClearPath = true;
 
-        rd.AddForce(pushDir * 1000);
+        rd.AddForce(pushDir * 2000);
         rd.AddForce(transform.up * 300);
 
         update = "PUSH";

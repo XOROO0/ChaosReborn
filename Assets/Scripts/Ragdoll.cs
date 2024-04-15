@@ -9,6 +9,10 @@ public class Ragdoll : MonoBehaviour
 
     Rigidbody hipRB;
 
+    public float slowDownGravityScale = 0.2f;
+
+    private float gravityScale = 1f;
+
     public Vector3 hipPosition { get { return hipRB.position; } }
 
     private void Start()
@@ -18,7 +22,19 @@ public class Ragdoll : MonoBehaviour
 
         hipRB = anim.GetBoneTransform(HumanBodyBones.Hips).GetComponent<Rigidbody>();
 
+        foreach (Rigidbody rb in rbs)
+        {
+            rb.useGravity = false;
+        }
+
         DeactivateRagdoll();
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 gravity = -9.81f * gravityScale * Vector3.up;
+
+        hipRB.AddForce(gravity, ForceMode.Acceleration);
     }
 
 
@@ -50,7 +66,7 @@ public class Ragdoll : MonoBehaviour
     {
         foreach (var r in rbs)
         {
-            r.velocity = Vector3.zero;
+            r.velocity = r.velocity.normalized * 2f;
         }
     }
 
@@ -58,7 +74,7 @@ public class Ragdoll : MonoBehaviour
     {
         foreach(var r in rbs)
         {
-            r.useGravity = false;
+            gravityScale = slowDownGravityScale;
         }
     }
 }

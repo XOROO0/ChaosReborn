@@ -1984,6 +1984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f8dbeef8b30da4b9e8b0509aeb3ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slowDownGravityScale: 0.8
 --- !u!114 &8421352960436370185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1999,6 +2000,9 @@ MonoBehaviour:
   health: 100
   shatteredModel: {fileID: 8767355135477952997, guid: 4402d3c1b37d1e14eb1a517b41561122,
     type: 3}
+  environmentLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   dropHealth: 20
   explosion: {fileID: 6079974903286459223, guid: 5a5f7ee09f6be994883bc2f19e32b314,
     type: 3}
