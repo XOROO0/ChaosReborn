@@ -9,6 +9,8 @@ public class Leash : MonoBehaviour
 
     public Vector3 hitPoint;
 
+    public float pullForce = 100;
+
     [HideInInspector]
     public bool isLeashing;
 
@@ -34,6 +36,18 @@ public class Leash : MonoBehaviour
 
         if (caughtEnemy == null)
             isLeashing = false;
+
+        if (isLeashing)
+        {
+            Vector3 dir = Camera.main.transform.forward;
+            GetComponent<Rigidbody>().AddForce(dir * pullForce, ForceMode.Force);
+
+            if (Vector3.Distance(transform.position, caughtEnemy.position) < 2)
+            {
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                StopLeash();
+            }
+        }
     }
 
 
@@ -70,14 +84,15 @@ public class Leash : MonoBehaviour
             return;
 
 
-        caughtEnemy.transform.root.GetComponent<RagdollEnemy>().Pull();
+        //caughtEnemy.transform.root.GetComponent<RagdollEnemy>().Pull();
 
-        Invoke(nameof(StopLeash), 1f);
+        FPSController.canMove = false;
     }
 
     void StopLeash()
     {
         isLeashing = false;
+        FPSController.canMove = true;
         if(caughtEnemy == null) return;
         //caughtEnemy.transform.root.GetComponent<RagdollEnemy>().StopMoving();
     }

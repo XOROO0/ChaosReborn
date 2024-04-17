@@ -18,7 +18,8 @@ public class EquippingScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        Equip2();
+        equipped = Slot2.transform;
     }
 
     // Update is called once per frame

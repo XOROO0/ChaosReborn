@@ -39,8 +39,11 @@ public class Ranged_Enemy : Enemy
             EnemyAgent.enabled = false;
         }
 
-        anim.SetBool("Moving", !EnemyAgent.isStopped);
-        anim.SetBool("Attack", canShoot);
+        if(EnemyAgent.enabled)
+        {
+            anim.SetBool("Moving", !EnemyAgent.isStopped);
+            anim.SetBool("Attack", canShoot);
+        }
     }
 
     Vector3 GetDestination(Vector3 playerPos)

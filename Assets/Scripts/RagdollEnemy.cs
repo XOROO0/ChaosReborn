@@ -57,15 +57,14 @@ public class RagdollEnemy : MonoBehaviour
 
         if(update == "PULL")
         {
-            if(Vector3.Distance(FPSController.playerTransform.position,
+                // This Code is for enemy being pulled to player
+/*            if(Vector3.Distance(FPSController.playerTransform.position,
                 transform.GetChild(1).position) < 2)
             {
-
-                rd.StopAllForces();
-                rd.DisableGravity();
-                AllowPlayerToMove();
-                GetComponent<ClearLeashPath>().doClearPath = false;
-            }
+                                rd.StopAllForces();
+                                rd.DisableGravity();
+                                GetComponent<ClearLeashPath>().doClearPath = false;
+            }*/
         }
         else if(update == "PUSH")
         {
@@ -98,24 +97,21 @@ public class RagdollEnemy : MonoBehaviour
 
     public void Pull()
     {
+        // This Code is for enemy being pulled to player.
+        /*        Vector3 pullVector = WallRun.isWallRunning ? -Camera.main.transform.forward :
+                    -FPSController.playerTransform.forward;
+                rd.ActivateRagdoll();
 
-        //FPSController.canMove = false;
+                GetComponent<ClearLeashPath>().doClearPath = true;
 
-
-        Vector3 pullVector = WallRun.isWallRunning ? -Camera.main.transform.forward :
-            -FPSController.playerTransform.forward;
-        rd.ActivateRagdoll();
-
-        GetComponent<ClearLeashPath>().doClearPath = true;
-
-        var force = WallRun.isWallRunning ? 4000 : 2000;
-        rd.AddForce(pullVector * force);
+                var force = WallRun.isWallRunning ? 4000 : 2000;
+                rd.AddForce(pullVector * force);
 
 
-        rd.AddForce(transform.up * 100);
-        //rd.DisableGravity();
+                rd.AddForce(transform.up * 100);*/
 
-        //Invoke(nameof(CheckForQ), 1f);
+
+
         update = "PULL";
 
     }
